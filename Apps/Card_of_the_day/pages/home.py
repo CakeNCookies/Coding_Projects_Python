@@ -1,10 +1,25 @@
 import dash
 from dash import html, dcc, html, Input, Output, ctx, callback
+from datetime import date, datetime
 
 dash.register_page(__name__, path='/')
 
 layout = html.Div([
     html.H1('Which Card Did You Get Today?'),
+    html.H3('Select a day'),
+    dcc.DatePickerSingle(
+        id='my-date-picker-single',
+        min_date_allowed=date(1995, 1, 1),
+        max_date_allowed=date(2100, 12, 31),
+        initial_visible_month=datetime.today(),
+        date=datetime.today()
+    ),
+    html.Div(id='output-container-date-picker-single'),
+
+    html.Br(),
+
+
+
     # html.Div([
     #     dcc.Button('Major Arcana', id='btn-marc'),
     #     dcc.Button('Cups', id='btn-cups'),
@@ -34,12 +49,12 @@ layout = html.Div([
 
     html.Div([
     # html.H1('Dash Tabs component demo'),
-    dcc.Tabs(id="tabs-example-graph", value='tab-1-example-graph', children=[
-        dcc.Tab(label='Major Arcana', value='tab-1-example-graph'),
-        dcc.Tab(label='Cups', value='tab-2-example-graph'),
-        dcc.Tab(label='Pentacles', value='tab-3-example-graph'),
-        dcc.Tab(label='Wands', value='tab-4-example-graph'),
-        dcc.Tab(label='Swords', value='tab-5-example-graph'),
+    dcc.Tabs(id="tabs-example-graph", value='tab-ma', children=[
+        dcc.Tab(label='Major Arcana', value='tab-ma'),
+        dcc.Tab(label='Cups', value='tab-cu'),
+        dcc.Tab(label='Pentacles', value='tab-pe'),
+        dcc.Tab(label='Wands', value='tab-wa'),
+        dcc.Tab(label='Swords', value='tab-sw'),
     ]),
     html.Div(id='tabs-content-example-graph')
 ])
@@ -75,31 +90,25 @@ layout = html.Div([
         Output('tabs-content-example-graph', 'children'),
         Input('tabs-example-graph', 'value'))
 def render_content(tab):
-    if tab == 'tab-1-example-graph':
+    if tab == 'tab-ma':
         return html.Div([
             html.Img(id="00MA", src="assets/00MA.png", n_clicks=0, style={'cursor': 'pointer'}),
             html.Img(id="01MA", src="assets/01MA.png", n_clicks=0, style={'cursor': 'pointer'}),
-            # dcc.Graph(
-            #     figure={
-            #         'data': [{
-            #             'x': [1, 2, 3],
-            #             'y': [3, 1, 2],
-            #             'type': 'bar'
-            #         }]
-            #     }
-            # )
-        ])
-    elif tab == 'tab-2-example-graph':
+            html.Img(id="02MA", src="assets/02MA.png", n_clicks=0, style={'cursor': 'pointer'}),
+        ], style={'display': 'flex', 'flexDirection': 'row', 'flexWrap': 'wrap'})
+    elif tab == 'tab-cu':
         return html.Div([
-            html.H3('Tab content 2'),
-            dcc.Graph(
-                id='graph-2-tabs-dcc',
-                figure={
-                    'data': [{
-                        'x': [1, 2, 3],
-                        'y': [5, 10, 6],
-                        'type': 'bar'
-                    }]
-                }
-            )
-        ])
+            html.Img(id="01CU", src="assets/01CU.png", n_clicks=0, style={'cursor': 'pointer'}),
+        ], style={'display': 'flex', 'flexDirection': 'row', 'flexWrap': 'wrap'})
+    elif tab == 'tab-pe':
+        return html.Div([
+            html.Img(id="01PE", src="assets/01PE.png", n_clicks=0, style={'cursor': 'pointer'}),
+        ], style={'display': 'flex', 'flexDirection': 'row', 'flexWrap': 'wrap'})
+    elif tab == 'tab-wa':
+        return html.Div([
+            html.Img(id="01WA", src="assets/01WA.png", n_clicks=0, style={'cursor': 'pointer'}),
+        ], style={'display': 'flex', 'flexDirection': 'row','flexWrap': 'wrap'})
+    elif tab == 'tab-sw':
+        return html.Div([
+            html.Img(id="01SW", src="assets/01SW.png", n_clicks=0, style={'cursor': 'pointer'}),
+        ], style={'display': 'flex', 'flexDirection': 'row','flexWrap': 'wrap'})
