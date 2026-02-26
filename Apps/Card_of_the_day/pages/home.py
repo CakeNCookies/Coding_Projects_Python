@@ -31,8 +31,22 @@ def updatecsv(data, date, card):
     data.to_csv("data.csv", index=False)
     return data.sort_values(by=['date'])
 
+
+
+
+
+
+
+
+
+
+
+
+
 layout = html.Div([
     html.H1('Which Card Did You Get Today?'),
+
+    html.Div([
     html.H3('Select a day'),
     dcc.DatePickerSingle(
         id='my-date-picker-single',
@@ -42,10 +56,10 @@ layout = html.Div([
         date=datetime.today()
     ),
     html.Div(id='output-container-date-picker-single'),
+    ], style={'max-width': '500'}),
+
 
     html.Br(),
-
-
 
 
     html.Div([
@@ -58,7 +72,7 @@ layout = html.Div([
         dcc.Tab(label='Swords', value='tab-sw'),
     ]),
     html.Div(id='tabs-content-example-graph')
-])
+    ])
 ])
 
 
@@ -72,7 +86,17 @@ layout = html.Div([
 # def display_click_count(n_clicks):
 #     return f"Image clicked {n_clicks} times"
 
-    
+
+
+@callback(
+    Output('output-container-date-picker-single', 'children'),
+    Input('my-date-picker-single', 'date'))
+def update_output(date_value):
+    string_prefix = 'You have selected: '
+    if date_value is not None:
+        date_object = date_value
+        date_string = datetime.fromisoformat(date_object).strftime('%Y-%m-%d')
+        return string_prefix + date_string
 
 
 
@@ -102,3 +126,9 @@ def render_content(tab):
         return html.Div([
             html.Img(id="01SW", src="assets/01SW.png", n_clicks_timestamp=0, style={'cursor': 'pointer'}),
         ], style={'display': 'flex', 'flexDirection': 'row','flexWrap': 'wrap'})
+    
+
+
+
+
+    
